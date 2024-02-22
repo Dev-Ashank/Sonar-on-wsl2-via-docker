@@ -1,0 +1,21 @@
+How to install and run sonar on windows using wsl2 and Docker.
+Make sure docker is running.
+1. Install sonar
+   docker pull sonarqube:7.9.4-community 
+2. Install sonar cli
+   docker pull newtmitch/sonar-scanner:4-alpine 
+3. Run Sonar
+   docker run -d --name sonarqube -p 9000:9000 sonarqube:7.9.4-community 
+4. On port 9000 Create project locally. From there copy sonar token.
+5. Go to project root dir.
+    - in wsl 
+       cd /mnt/c/ 
+6. run this command
+      docker run   --rm   -v "$(pwd):/usr/src"   sonarsource/sonar-scanner-cli   -Dsonar.projectKey=your-service name   -Dsonar.sources=.   -Dsonar.host.url=http://172.19.169.62:9000   -Dsonar.token=sqp_c8d5d34cdb23e583dc9bf0547bb5bb86ca3e1 
+
+** For sonar host url check where wsl is running then append port after that.
+  http://172.19.169.62:9000  
+
+  To check wsl running on which ip
+  - wsl hostname -I
+  use first one.
